@@ -1,0 +1,87 @@
+.header-image{
+	color: white;
+	background: white;
+	background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url("/static/header/header.webp"), ;
+	height: 300px;
+	padding: 20px;
+	position: relative;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	filter: brightness 50%;
+	margin-bottom: 2.5rem;
+}
+
+.navbar.unscrolled{
+	background-color: transparent !important;
+	transition: background-color .3s linear !important;
+}
+
+.navbar.scrolled{
+	transition: background-color .3s linear !important;
+}
+
+.navbar-light.unscrolled li.active a{
+	color: #FFF !important;
+	transition: color .4s linear !important;
+}
+
+.navbar-light.unscrolled li a{
+	color: rgba(255, 255, 255, .5) !important;
+	transition: color .4s linear !important;
+}
+
+.navbar-light li a{
+	transition: color .3s linear !important;
+}
+
+.navbar-light li.active a{
+	transition: color .3s linear !important;
+}
+
+.header-text-center{
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.header-text{
+	text-align: center;
+	font-size: calc(32pt + 1.2vw);
+}
+
+.nav-item.active.unexpanded-item{
+	outline: solid;
+	outline-color: #111;
+	outline-width: 1px;
+	transition: outline-color 0.3s linear !important;
+}
+
+.navbar-light.unscrolled .nav-item.active.unexpanded-item{
+	outline-color: #DDD;
+	transition: outline-color 0.4s linear !important;
+}
+
+.navbar-toggler:focus{
+	outline: none;
+}
+
+.navbar-light.unscrolled li.active a.dropdown-item{
+	color: #212529 !important;
+}
+
+.navbar-light.unscrolled li a.dropdown-item{
+	color: #212529 !important;
+}
+
+.davis-inline-list {
+	list-style-position:inside;
+}
+
+.davis-inline-list li {
+	float:left;
+	padding-right:3rem;
+	font-weight:600;
+	font-size:1.5rem;
+}
