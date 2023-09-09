@@ -437,6 +437,7 @@ dependencies = [
  "gloo-net 0.4.0",
  "gloo-utils 0.2.0",
  "log",
+ "model",
  "reqwest",
  "serde",
  "uuid",
@@ -1034,6 +1035,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "model"
+version = "0.1.0"
+dependencies = [
+ "serde",
+]
+
+[[package]]
 name = "native-tls"
 version = "0.2.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1479,6 +1487,7 @@ dependencies = [
  "futures",
  "hyper",
  "log",
+ "model",
  "tokio",
  "tower",
  "tower-http",

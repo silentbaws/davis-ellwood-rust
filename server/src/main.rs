@@ -1,3 +1,5 @@
+mod api;
+
 use std::collections::HashMap;
 use std::convert::Infallible;
 use std::net::{IpAddr, Ipv6Addr, SocketAddr};
@@ -21,6 +23,8 @@ use tower_http::services::ServeDir;
 use tower_http::trace::TraceLayer;
 use yew::platform::Runtime;
 
+use crate::api::get_api_router;
+
 #[derive(Parser, Debug)]
 #[clap(name = "server", about = "A server for our wasm project!")]
 struct Opt {
@@ -33,7 +37,7 @@ struct Opt {
     addr: String,
 
     /// set the listen port
-    #[clap(short = 'p', long = "port", default_value = "80")]
+    #[clap(short = 'p', long = "port", default_value = "8080")]
     port: u16,
 
     #[clap(long = "static-dir", default_value = "./dist")]
@@ -111,7 +115,7 @@ async fn main() {
     };
 
     let app = Router::new()
-        .route("/api/hello", get(hello))
+        .nest("/api", get_api_router())
         .fallback_service(HandleError::new(
             ServeDir::new(static_path)
                 .append_index_html_on_directories(false)
@@ -137,8 +141,4 @@ async fn main() {
         .serve(app.into_make_service())
         .await
         .expect("Unable to start server");
-}
-
-async fn hello() -> impl IntoResponse {
-    "hello from server!"
 }

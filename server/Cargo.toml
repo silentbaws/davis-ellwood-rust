@@ -19,3 +19,4 @@ yew = { version = "0.20.0", features = ["ssr"] }
 futures = "0.3.28"
 bytes = "1.4.0"
 hyper = "0.14.27"
+model = { path = "../model" }
