@@ -1488,6 +1488,7 @@ dependencies = [
  "hyper",
  "log",
  "model",
+ "serde",
  "tokio",
  "tower",
  "tower-http",

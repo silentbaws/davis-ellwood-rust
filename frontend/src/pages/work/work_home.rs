@@ -1,9 +1,25 @@
-use yew::{prelude::*, virtual_dom::VChild};
-use yew_bootstrap::component::{Container, Column, Row, Lead};
-use yew_router::prelude::Link;
 use model::work::WorkItem;
+use yew::{prelude::*, virtual_dom::VChild};
+use yew_bootstrap::component::{Column, Container, Lead, Row};
+use yew_router::prelude::Link;
 
 use crate::MainRoute;
+
+async fn fetch_all_work() -> Result<Vec<WorkItem>, ()> {
+    // reqwest works for both non-wasm and wasm targets.
+    let resp = reqwest::get("http://localhost:8080/api/work").await;
+
+    match resp {
+        Ok(response) => {
+            let deserialized = response.json::<Vec<WorkItem>>().await;
+            match deserialized {
+                Ok(result) => Ok(result),
+                Err(_) => Err({}),
+            }
+        }
+        Err(_) => Err({}),
+    }
+}
 
 fn work_item_to_card(work_item: &WorkItem) -> VChild<Column> {
     html_nested! {
@@ -24,16 +40,22 @@ fn work_item_to_card(work_item: &WorkItem) -> VChild<Column> {
 }
 
 #[function_component]
-pub fn WorkHome() -> Html {
-    let work_items = use_state(|| Vec::<WorkItem>::new());
+pub fn WorkHome() -> HtmlResult {
+    let work_items = use_prepared_state!(
+        async move |_| -> Vec<WorkItem> { fetch_all_work().await.unwrap_or(vec![]) },
+        ()
+    )?
+    .unwrap();
 
-    html! {
-    <Container fluid={true}>
-        <Row class="row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 justify-content-center mb-5">
-            {
-                work_items.iter().map(|item| work_item_to_card(item)).collect::<Vec<VChild<Column>>>()
-            }
-        </Row>
-    </Container>
-    }
+    Ok(html! {
+        <Container fluid={true}>
+            <Row class="row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 justify-content-center mb-5">
+                {
+                    (*work_items).iter().map(|item| {
+                        work_item_to_card(item)
+                    }).collect::<Vec<VChild<Column>>>()
+                }
+            </Row>
+        </Container>
+    })
 }

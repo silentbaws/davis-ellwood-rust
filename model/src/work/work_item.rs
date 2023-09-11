@@ -10,5 +10,5 @@ pub struct WorkItem {
     pub description: String,
     pub id: String,
     pub technologies: Vec<String>,
-    pub features_and_challenges: Vec<FeatureItem>,
+    pub features: Vec<FeatureItem>,
 }

@@ -85,3 +85,6 @@
 	font-weight:600;
 	font-size:1.5rem;
 }
+
+.work-tech-list {
+  white-space: pre-wrap; }

@@ -28,8 +28,8 @@ pub fn WorkPage (_props: &WorkPageProps) -> Html {
             String::from("Python/Django"),
             String::from("PostgreSQL"),
             String::from("Git"),
-        ],
-        features_and_challenges: vec![
+        ], 
+        features: vec![
             FeatureItem { 
                 title: String::from("Singleton Object Design"),
                 description: String::from("Upon looking at the code of the game it's clear that it was made without multiplayer in mind. All the controller classes for the player/skateboard are singletons. My initial plan was to spawn in other players and send each person's input data over the network to recreate their movement. However, because of the singleton design, any attempts to spawn a duplicate player resulted in a fatal error and crashing of the program.\n\nThe solution I came up with was to disable all the controller scripts before duplication and send bone transform data instead of input data. This avoided any crashes as the singleton check wouldn't run on the duplicate objects as they're disabled and also got around using the input controller by just sending the player state each frame.") 
@@ -55,7 +55,7 @@ pub fn WorkPage (_props: &WorkPageProps) -> Html {
     }
 
     let tech_string = update_technology_string(&item_1.technologies);
-    
+   
     html! {
         <Container class="mb-5">
             <Row class="mb-5">
@@ -68,22 +68,22 @@ pub fn WorkPage (_props: &WorkPageProps) -> Html {
                 <Column size={12} lg={6} class="mb-5">
                     <img src="/static/work/technology.png" style="display: block; margin-left: auto; margin-right: auto;" height={"100px"} />
                     <h3 class="text-center">{"Technologies Used"}</h3>
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-12 text-center" style="white-space:pre-wrap;">
+                    <Container fluid={true}>
+                        <Row>
+                            <Column size={12} class="text-center work-tech-list">
                                 <Lead>
                                     {tech_string}
                                 </Lead>
-                            </div>
-                        </div>
-                    </div>
+                            </Column>
+                        </Row>
+                    </Container>
                 </Column>
                 <Column size={12} lg={6}>
                     <img src="/static/work/problem.png" style="display: block; margin-left: auto; margin-right: auto;" height={"100px"} />
                     <h3 class="text-center">{"Features and Development Challenges"}</h3>
                     <Accordion id="features-and-challenges">
                             {
-                                item_1.features_and_challenges.iter().map(|feature| {
+                                item_1.features.iter().map(|feature| {
                                     html_nested! {
                                         <AccordionItem title={feature.title.to_owned()}>
                                             {feature.description.to_owned()}
